@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace VirtualVBApp
 {
@@ -88,10 +89,10 @@ namespace VirtualVBApp
 
             textBox1.Text = ((float)A_ESV_1 / 10.0).ToString("F1") + "V";
             textBox2.Text = ((float)A_ESV_2 / 10.0).ToString("F1") + "V";
-            textBox3.Text = ((float)A_ESV_3 / 10.0).ToString("F1") + "V";
-            textBox4.Text = ((float)A_ESV_4 / 10.0).ToString("F1") + "V";
-            textBox5.Text = ((float)A_ESV_5 / 10.0).ToString("F1") + "V";
-            textBox6.Text = ((float)A_ESV_6 / 10.0).ToString("F1") + "V";
+            textBox4.Text = ((float)A_ESV_3 / 10.0).ToString("F1") + "V";
+            textBox3.Text = ((float)A_ESV_4 / 10.0).ToString("F1") + "V";
+            textBox6.Text = ((float)A_ESV_5 / 10.0).ToString("F1") + "V";
+            textBox5.Text = ((float)A_ESV_6 / 10.0).ToString("F1") + "V";
             textBox9.Text = ((float)A_ESV_TOTAL / 10.0).ToString("F1") + "V";
 
 
@@ -136,10 +137,10 @@ namespace VirtualVBApp
 
             textBox1.Text = ((float)A_ESV_1 / 10.0).ToString("F1") + "V";
             textBox2.Text = ((float)A_ESV_2 / 10.0).ToString("F1") + "V";
-            textBox3.Text = ((float)A_ESV_3 / 10.0).ToString("F1") + "V";
-            textBox4.Text = ((float)A_ESV_4 / 10.0).ToString("F1") + "V";
-            textBox5.Text = ((float)A_ESV_5 / 10.0).ToString("F1") + "V";
-            textBox6.Text = ((float)A_ESV_6 / 10.0).ToString("F1") + "V";
+            textBox4.Text = ((float)A_ESV_3 / 10.0).ToString("F1") + "V";
+            textBox3.Text = ((float)A_ESV_4 / 10.0).ToString("F1") + "V";
+            textBox6.Text = ((float)A_ESV_5 / 10.0).ToString("F1") + "V";
+            textBox5.Text = ((float)A_ESV_6 / 10.0).ToString("F1") + "V";
             textBox9.Text = ((float)A_ESV_TOTAL / 10.0).ToString("F1") + "V";
         }
 
@@ -255,12 +256,12 @@ namespace VirtualVBApp
             A_ESV_5 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
             A_ESV_6 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
 
-            B_ESV_1 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            B_ESV_2 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            B_ESV_3 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            B_ESV_4 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            B_ESV_5 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            B_ESV_6 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
+            B_ESV_1 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
+            B_ESV_2 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
+            B_ESV_3 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
+            B_ESV_4 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
+            B_ESV_5 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
+            B_ESV_6 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
 
             // 确保每个 A_ESV_变量不小于 10
             EnsureMinimumValue(ref A_ESV_1);
@@ -300,10 +301,10 @@ namespace VirtualVBApp
 
             textBox1.Text = ((float)A_ESV_1 / 10.0).ToString("F1") + "V";
             textBox2.Text = ((float)A_ESV_2 / 10.0).ToString("F1") + "V";
-            textBox3.Text = ((float)A_ESV_3 / 10.0).ToString("F1") + "V";
-            textBox4.Text = ((float)A_ESV_4 / 10.0).ToString("F1") + "V";
-            textBox5.Text = ((float)A_ESV_5 / 10.0).ToString("F1") + "V";
-            textBox6.Text = ((float)A_ESV_6 / 10.0).ToString("F1") + "V";
+            textBox4.Text = ((float)A_ESV_3 / 10.0).ToString("F1") + "V";
+            textBox3.Text = ((float)A_ESV_4 / 10.0).ToString("F1") + "V";
+            textBox6.Text = ((float)A_ESV_5 / 10.0).ToString("F1") + "V";
+            textBox5.Text = ((float)A_ESV_6 / 10.0).ToString("F1") + "V";
             textBox9.Text = ((float)A_ESV_TOTAL / 10.0).ToString("F1") + "V";
 
             textBox18.Text = ((float)B_ESV_1 / 10.0).ToString("F1") + "V";
@@ -381,12 +382,18 @@ namespace VirtualVBApp
         private void trackBar3_Scroll(object sender, EventArgs e)
         {
             A_OCV = (ushort)trackBar3.Value;
+            B_OCV = (ushort)(A_OCV + (ushort)GenerateRandomNumber());
+            trackBar6.Value = trackBar3.Value;
             textBox7.Text = ((float)A_OCV / 10000.0).ToString("F4");
+            textBox12.Text = ((float)B_OCV / 10000.0).ToString("F4");
         }
 
         private void trackBar6_Scroll(object sender, EventArgs e)
         {
             B_OCV = (ushort)trackBar6.Value;
+            A_OCV = (ushort)(B_OCV + (ushort)GenerateRandomNumber());
+            trackBar3.Value = trackBar6.Value;
+            textBox7.Text = ((float)A_OCV / 10000.0).ToString("F4");
             textBox12.Text = ((float)B_OCV / 10000.0).ToString("F4");
         }
 
