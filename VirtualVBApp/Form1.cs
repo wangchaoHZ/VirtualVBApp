@@ -26,7 +26,9 @@ namespace VirtualVBApp
         private ushort A_ESV_TOTAL = 0;
 
         private ushort A_OCV = 0;
-        private ushort A_CURRENT = 0;
+        private int A_CURRENT = 0;
+        private ushort A_CURRENT_VOLT = 0;
+
 
         private ushort B_ESV_1 = 0;
         private ushort B_ESV_2 = 0;
@@ -37,7 +39,8 @@ namespace VirtualVBApp
         private ushort B_ESV_TOTAL = 0;
 
         private ushort B_OCV = 0;
-        private ushort B_CURRENT = 0;
+        private int B_CURRENT = 0;
+        private ushort B_CURRENT_VOLT = 0;
 
 
 
@@ -111,13 +114,15 @@ namespace VirtualVBApp
             textBox7.Text = ((float)A_OCV / 10000.0).ToString("F4") + "V";
             textBox12.Text = ((float)B_OCV / 10000.0).ToString("F4") + "V";
 
-
-
             A_CURRENT = (ushort)trackBar4.Value;
             B_CURRENT = (ushort)trackBar5.Value;
 
             textBox8.Text = ((float)A_CURRENT / 10.0).ToString("F1") + "A";
             textBox11.Text = ((float)B_CURRENT / 10.0).ToString("F1") + "A";
+
+            textBox21.Text = ((float)0.0).ToString("F1") + "KW";
+            textBox22.Text = ((float)0.0).ToString("F1") + "KW";
+            textBox23.Text = ((float)0.0).ToString("F1") + "KW";
         }
 
         private void label11_Click(object sender, EventArgs e)
@@ -184,18 +189,18 @@ namespace VirtualVBApp
 
         private void Update_RTU_Regs()
         {
-            slave1.SetHoldingRegister(36, A_ESV_TOTAL);
-            slave1.SetHoldingRegister(37, A_ESV_1);
-            slave1.SetHoldingRegister(38, A_ESV_2);
-            slave1.SetHoldingRegister(39, A_ESV_3);
-            slave1.SetHoldingRegister(40, A_ESV_4);
-            slave1.SetHoldingRegister(41, A_ESV_5);
-            slave1.SetHoldingRegister(42, A_ESV_6);
-            slave1.SetHoldingRegister(43, 0);
-            slave1.SetHoldingRegister(44, 0);
-            slave1.SetHoldingRegister(45, 0);
-            slave1.SetHoldingRegister(46, A_OCV);
-            slave1.SetHoldingRegister(47, A_CURRENT);
+            slave1.SetHoldingRegister(36, A_ESV_TOTAL);//0
+            slave1.SetHoldingRegister(37, A_ESV_1);//1
+            slave1.SetHoldingRegister(38, A_ESV_2);//2
+            slave1.SetHoldingRegister(39, A_ESV_3);//3
+            slave1.SetHoldingRegister(40, A_ESV_4);//4
+            slave1.SetHoldingRegister(41, A_ESV_5);//5
+            slave1.SetHoldingRegister(42, A_ESV_6);//6
+            slave1.SetHoldingRegister(43, 0);//7
+            slave1.SetHoldingRegister(44, 0);//8
+            slave1.SetHoldingRegister(45, A_CURRENT_VOLT);//9电流通道
+            slave1.SetHoldingRegister(46, A_OCV);//10
+            slave1.SetHoldingRegister(47, A_CURRENT_VOLT);//11
 
 
             slave2.SetHoldingRegister(36, B_ESV_TOTAL);
@@ -207,9 +212,9 @@ namespace VirtualVBApp
             slave2.SetHoldingRegister(42, B_ESV_6);
             slave2.SetHoldingRegister(43, 0);
             slave2.SetHoldingRegister(44, 0);
-            slave2.SetHoldingRegister(45, 0);
+            slave2.SetHoldingRegister(45, B_CURRENT_VOLT);
             slave2.SetHoldingRegister(46, B_OCV);
-            slave2.SetHoldingRegister(47, B_CURRENT);
+            slave2.SetHoldingRegister(47, B_CURRENT_VOLT);
         }
 
         private Random random = new Random();
@@ -217,11 +222,11 @@ namespace VirtualVBApp
         private ushort GenerateRandomNumber()
         {
             // 生成一个范围在 0 到 10 之间的随机数
-            int randomNumber = random.Next(0, 11);
+            int randomNumber = random.Next(0, 8);
 
             // 通过生成的数值来表示范围 -5 到 5
             // 如果 randomNumber 小于 5，则为负数，否则为正数
-            int finalNumber = randomNumber - 5;  // -5 到 5 之间的值
+            int finalNumber = randomNumber - 3;  // -5 到 5 之间的值
 
             // 如果你需要返回的是 ushort 数字，建议用 Math.Abs 取绝对值（即转换为正数）
             return (ushort)Math.Abs(finalNumber);  // 返回正数
@@ -236,6 +241,21 @@ namespace VirtualVBApp
             }
         }
 
+        private int ConvertToCurrentVolt(int aCurrent)
+        {
+            double scaleFactor = 5000.0 / 1500.0;
+            double result = aCurrent * scaleFactor;
+
+            // 限制在 ushort 范围内
+            //if (result < 0)
+            //    result = 0;
+            //else if (result > 65535)
+            //    result = 65535;
+
+            return (int)result;
+        }
+
+
         // 确保变量的值不小于 10
         private void EnsureMinimumValue(ref ushort value)
         {
@@ -246,9 +266,6 @@ namespace VirtualVBApp
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-
-            Console.WriteLine("CLICK");
-
             A_ESV_1 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
             A_ESV_2 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
             A_ESV_3 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
@@ -295,7 +312,6 @@ namespace VirtualVBApp
             UpdateESV(checkBox28, checkBox27, ref B_ESV_5);
             UpdateESV(checkBox26, checkBox25, ref B_ESV_6);
 
-
             A_ESV_TOTAL = Math.Max((ushort)(A_ESV_1 + A_ESV_2 + A_ESV_3), (ushort)(A_ESV_4 + A_ESV_5 + A_ESV_6));
             B_ESV_TOTAL = Math.Max((ushort)(B_ESV_1 + B_ESV_2 + B_ESV_3), (ushort)(B_ESV_4 + B_ESV_5 + B_ESV_6));
 
@@ -315,11 +331,29 @@ namespace VirtualVBApp
             textBox13.Text = ((float)B_ESV_6 / 10.0).ToString("F1") + "V";
             textBox10.Text = ((float)B_ESV_TOTAL / 10.0).ToString("F1") + "V";
 
-            A_CURRENT = (ushort)(trackBar5.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            B_CURRENT = (ushort)(A_CURRENT + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            //
-            textBox8.Text = ((float)A_CURRENT / 10.0).ToString("F1") + "A";
-            textBox11.Text = ((float)B_CURRENT / 10.0).ToString("F1") + "A";
+
+            if (checkBox13.Checked)
+            {
+                trackBar5.Value = 0;
+                trackBar4.Value = 0;
+            }
+
+            A_CURRENT = trackBar5.Value + (int)GenerateRandomNumber();  // Cast random number to ushort
+            B_CURRENT = A_CURRENT + (int)GenerateRandomNumber();        // Cast random number to ushort
+
+            Console.WriteLine("---> ACV:" + (ConvertToCurrentVolt(A_CURRENT)).ToString());
+            Console.WriteLine("---> BCV:" + (ConvertToCurrentVolt(B_CURRENT)).ToString());
+
+            textBox8.Text = ((float)A_CURRENT).ToString("F1") + "A";
+            textBox11.Text = ((float)B_CURRENT).ToString("F1") + "A";
+
+            A_CURRENT_VOLT = (ushort)ConvertToCurrentVolt(A_CURRENT);
+            B_CURRENT_VOLT = (ushort)ConvertToCurrentVolt(B_CURRENT);
+
+            textBox21.Text = (((float)A_CURRENT) * ((float)A_ESV_TOTAL) / 10000.0).ToString("F1") + "KW";
+            textBox22.Text = (((float)B_CURRENT) * ((float)B_ESV_TOTAL) / 10000.0).ToString("F1") + "KW";
+            textBox23.Text = (((float)B_CURRENT + (float)A_CURRENT) * ((float)B_ESV_TOTAL + (float)A_ESV_TOTAL) / 10000.0).ToString("F1") + "KW";
+
             //
             A_OCV = (ushort)trackBar3.Value;
             B_OCV = (ushort)trackBar6.Value;
@@ -410,11 +444,11 @@ namespace VirtualVBApp
         private void trackBar5_Scroll(object sender, EventArgs e)
         {
             trackBar4.Value = trackBar5.Value;
-            A_CURRENT = (ushort)trackBar5.Value;
-            B_CURRENT = (ushort)A_CURRENT;
+            A_CURRENT = trackBar5.Value;
+            B_CURRENT = A_CURRENT;
 
-            textBox8.Text = ((float)A_CURRENT / 10.0).ToString("F1") + "A";
-            textBox11.Text = ((float)B_CURRENT / 10.0).ToString("F1") + "A";
+            textBox8.Text = ((float)A_CURRENT).ToString("F1") + "A";
+            textBox11.Text = ((float)B_CURRENT).ToString("F1") + "A";
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -448,6 +482,11 @@ namespace VirtualVBApp
         {
 
         }
+
+        private void label27_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 public class ModbusRtuSlave
@@ -465,7 +504,7 @@ public class ModbusRtuSlave
     private float targetFrequency = 0;  // 目标频率，单位Hz
 
     private ushort final_current = 0;
-    
+
     private string response_log = "";
 
     private bool comm_state = false;
