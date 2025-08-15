@@ -1,0 +1,10 @@
+D:\WinDesktop\VirtualVBApp\VirtualVBApp\bin\Release\VirtualVBApp.exe
+D:\WinDesktop\VirtualVBApp\VirtualVBApp\bin\Release\VirtualVBApp.exe.config
+D:\WinDesktop\VirtualVBApp\VirtualVBApp\bin\Release\VirtualVBApp.pdb
+D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Release\VirtualVBApp.csproj.AssemblyReference.cache
+D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Release\VirtualVBApp.Form1.resources
+D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Release\VirtualVBApp.Properties.Resources.resources
+D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Release\VirtualVBApp.csproj.GenerateResource.cache
+D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Release\VirtualVBApp.csproj.CoreCompileInputs.cache
+D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Release\VirtualVBApp.exe
+D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Release\VirtualVBApp.pdb

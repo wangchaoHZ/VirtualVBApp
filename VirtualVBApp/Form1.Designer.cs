@@ -123,6 +123,13 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.textBox23 = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
+            this.checkBox14 = new System.Windows.Forms.CheckBox();
+            this.checkBox15 = new System.Windows.Forms.CheckBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.textBox24 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
@@ -135,6 +142,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -175,11 +183,11 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox1.Location = new System.Drawing.Point(20, 162);
+            this.groupBox1.Location = new System.Drawing.Point(20, 129);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(533, 783);
+            this.groupBox1.Size = new System.Drawing.Size(533, 747);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "（1#板）通道";
@@ -229,7 +237,7 @@
             this.trackBar3.Size = new System.Drawing.Size(165, 56);
             this.trackBar3.TabIndex = 36;
             this.trackBar3.TickFrequency = 2000;
-            this.trackBar3.Value = 13322;
+            this.trackBar3.Value = 12519;
             this.trackBar3.Scroll += new System.EventHandler(this.trackBar3_Scroll);
             // 
             // textBox1
@@ -383,12 +391,12 @@
             // 
             this.trackBar1.Location = new System.Drawing.Point(31, 49);
             this.trackBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.trackBar1.Maximum = 1000;
+            this.trackBar1.Maximum = 860;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(475, 56);
             this.trackBar1.TabIndex = 3;
             this.trackBar1.TickFrequency = 20;
-            this.trackBar1.Value = 337;
+            this.trackBar1.Value = 237;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // textBox9
@@ -596,7 +604,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("微软雅黑", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button1.Location = new System.Drawing.Point(1141, 569);
+            this.button1.Location = new System.Drawing.Point(1141, 536);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(328, 72);
@@ -609,11 +617,12 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("微软雅黑", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label9.Location = new System.Drawing.Point(519, 38);
+            this.label9.Location = new System.Drawing.Point(486, 38);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(578, 57);
+            this.label9.Size = new System.Drawing.Size(621, 57);
             this.label9.TabIndex = 2;
-            this.label9.Text = "BMS 电压板模拟器（V2.0）";
+            this.label9.Text = "BMS 电堆设备模拟器（V2.0）";
+            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // groupBox2
             // 
@@ -653,11 +662,11 @@
             this.groupBox2.Controls.Add(this.textBox18);
             this.groupBox2.Controls.Add(this.label19);
             this.groupBox2.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox2.Location = new System.Drawing.Point(580, 162);
+            this.groupBox2.Location = new System.Drawing.Point(580, 129);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(533, 783);
+            this.groupBox2.Size = new System.Drawing.Size(533, 747);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "（2#板）通道";
@@ -707,7 +716,7 @@
             this.trackBar6.Size = new System.Drawing.Size(165, 56);
             this.trackBar6.TabIndex = 38;
             this.trackBar6.TickFrequency = 2000;
-            this.trackBar6.Value = 13318;
+            this.trackBar6.Value = 12518;
             this.trackBar6.Scroll += new System.EventHandler(this.trackBar6_Scroll);
             // 
             // checkBox25
@@ -846,12 +855,12 @@
             // 
             this.trackBar2.Location = new System.Drawing.Point(31, 49);
             this.trackBar2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.trackBar2.Maximum = 1000;
+            this.trackBar2.Maximum = 860;
             this.trackBar2.Name = "trackBar2";
             this.trackBar2.Size = new System.Drawing.Size(475, 56);
             this.trackBar2.TabIndex = 3;
             this.trackBar2.TickFrequency = 20;
-            this.trackBar2.Value = 337;
+            this.trackBar2.Value = 237;
             this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
             // 
             // textBox10
@@ -1073,15 +1082,16 @@
             // checkBox13
             // 
             this.checkBox13.AutoSize = true;
-            this.checkBox13.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.checkBox13.ForeColor = System.Drawing.Color.Green;
-            this.checkBox13.Location = new System.Drawing.Point(1141, 766);
+            this.checkBox13.Font = new System.Drawing.Font("微软雅黑", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox13.ForeColor = System.Drawing.Color.Teal;
+            this.checkBox13.Location = new System.Drawing.Point(638, 59);
             this.checkBox13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox13.Name = "checkBox13";
-            this.checkBox13.Size = new System.Drawing.Size(154, 31);
+            this.checkBox13.Size = new System.Drawing.Size(207, 41);
             this.checkBox13.TabIndex = 40;
             this.checkBox13.Text = "模拟空转待机";
             this.checkBox13.UseVisualStyleBackColor = true;
+            this.checkBox13.CheckedChanged += new System.EventHandler(this.checkBox13_CheckedChanged);
             // 
             // groupBox3
             // 
@@ -1096,7 +1106,7 @@
             this.groupBox3.Controls.Add(this.label20);
             this.groupBox3.Controls.Add(this.comboBox1);
             this.groupBox3.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox3.Location = new System.Drawing.Point(1141, 162);
+            this.groupBox3.Location = new System.Drawing.Point(1141, 129);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -1217,7 +1227,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("微软雅黑", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button2.Location = new System.Drawing.Point(1141, 671);
+            this.button2.Location = new System.Drawing.Point(1141, 638);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(328, 72);
@@ -1251,7 +1261,7 @@
             this.textBox23.BackColor = System.Drawing.Color.Black;
             this.textBox23.Font = new System.Drawing.Font("Patopian 1986", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox23.ForeColor = System.Drawing.Color.Magenta;
-            this.textBox23.Location = new System.Drawing.Point(1141, 851);
+            this.textBox23.Location = new System.Drawing.Point(1141, 798);
             this.textBox23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox23.Multiline = true;
             this.textBox23.Name = "textBox23";
@@ -1265,20 +1275,111 @@
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("微软雅黑", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label27.Location = new System.Drawing.Point(1138, 809);
+            this.label27.Location = new System.Drawing.Point(1138, 756);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(129, 31);
             this.label27.TabIndex = 20;
             this.label27.Text = "系统总功率";
             this.label27.Click += new System.EventHandler(this.label27_Click);
             // 
+            // checkBox14
+            // 
+            this.checkBox14.AutoSize = true;
+            this.checkBox14.Font = new System.Drawing.Font("微软雅黑", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox14.ForeColor = System.Drawing.Color.Red;
+            this.checkBox14.Location = new System.Drawing.Point(913, 59);
+            this.checkBox14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBox14.Name = "checkBox14";
+            this.checkBox14.Size = new System.Drawing.Size(207, 41);
+            this.checkBox14.TabIndex = 41;
+            this.checkBox14.Text = "模拟充电过程";
+            this.checkBox14.UseVisualStyleBackColor = true;
+            this.checkBox14.CheckedChanged += new System.EventHandler(this.checkBox14_CheckedChanged);
+            // 
+            // checkBox15
+            // 
+            this.checkBox15.AutoSize = true;
+            this.checkBox15.Font = new System.Drawing.Font("微软雅黑", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox15.ForeColor = System.Drawing.Color.Green;
+            this.checkBox15.Location = new System.Drawing.Point(1186, 59);
+            this.checkBox15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBox15.Name = "checkBox15";
+            this.checkBox15.Size = new System.Drawing.Size(207, 41);
+            this.checkBox15.TabIndex = 42;
+            this.checkBox15.Text = "模拟放电过程";
+            this.checkBox15.UseVisualStyleBackColor = true;
+            this.checkBox15.CheckedChanged += new System.EventHandler(this.checkBox15_CheckedChanged);
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.BackColor = System.Drawing.Color.Lime;
+            this.label28.Font = new System.Drawing.Font("华文中宋", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label28.ForeColor = System.Drawing.Color.Navy;
+            this.label28.Location = new System.Drawing.Point(1166, 45);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(198, 49);
+            this.label28.TabIndex = 43;
+            this.label28.Text = "状态显示";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.BackColor = System.Drawing.Color.White;
+            this.label29.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label29.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.label29.Location = new System.Drawing.Point(17, 61);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(210, 33);
+            this.label29.TabIndex = 44;
+            this.label29.Text = "充放时长给定(分)";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.BackColor = System.Drawing.Color.White;
+            this.groupBox4.Controls.Add(this.progressBar1);
+            this.groupBox4.Controls.Add(this.textBox24);
+            this.groupBox4.Controls.Add(this.label29);
+            this.groupBox4.Controls.Add(this.checkBox15);
+            this.groupBox4.Controls.Add(this.checkBox13);
+            this.groupBox4.Controls.Add(this.checkBox14);
+            this.groupBox4.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox4.Location = new System.Drawing.Point(20, 881);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(1449, 126);
+            this.groupBox4.TabIndex = 45;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "PCS设备动作模拟";
+            this.groupBox4.Enter += new System.EventHandler(this.groupBox4_Enter);
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(345, 61);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(238, 33);
+            this.progressBar1.TabIndex = 46;
+            // 
+            // textBox24
+            // 
+            this.textBox24.BackColor = System.Drawing.Color.White;
+            this.textBox24.Font = new System.Drawing.Font("微软雅黑", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.textBox24.Location = new System.Drawing.Point(241, 54);
+            this.textBox24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox24.Multiline = true;
+            this.textBox24.Name = "textBox24";
+            this.textBox24.Size = new System.Drawing.Size(87, 47);
+            this.textBox24.TabIndex = 45;
+            this.textBox24.Text = "200.5A";
+            this.textBox24.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1491, 956);
-            this.Controls.Add(this.checkBox13);
+            this.ClientSize = new System.Drawing.Size(1490, 1019);
+            this.Controls.Add(this.label28);
             this.Controls.Add(this.textBox23);
             this.Controls.Add(this.label27);
             this.Controls.Add(this.pictureBox1);
@@ -1288,11 +1389,12 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox4);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "BMS电压板模拟器";
+            this.Text = " ";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -1309,6 +1411,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1409,6 +1513,13 @@
         private System.Windows.Forms.TextBox textBox23;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.CheckBox checkBox13;
+        private System.Windows.Forms.CheckBox checkBox14;
+        private System.Windows.Forms.CheckBox checkBox15;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TextBox textBox24;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 
