@@ -1,11 +1,5 @@
-D:\WinDesktop\VirtualVBApp\VirtualVBApp\bin\Debug\VirtualVBApp.exe.config
-D:\WinDesktop\VirtualVBApp\VirtualVBApp\bin\Debug\VirtualVBApp.exe
-D:\WinDesktop\VirtualVBApp\VirtualVBApp\bin\Debug\VirtualVBApp.pdb
 D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Debug\VirtualVBApp.csproj.AssemblyReference.cache
 D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Debug\VirtualVBApp.Form1.resources
 D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Debug\VirtualVBApp.Properties.Resources.resources
 D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Debug\VirtualVBApp.csproj.GenerateResource.cache
 D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Debug\VirtualVBApp.csproj.CoreCompileInputs.cache
-D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Debug\VirtualVBApp.exe
-D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Debug\VirtualVBApp.pdb
-D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Debug\VirtualVBApp.exe.config

@@ -137,7 +137,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.checkBox14 = new System.Windows.Forms.CheckBox();
             this.checkBox15 = new System.Windows.Forms.CheckBox();
             this.label28 = new System.Windows.Forms.Label();
@@ -227,11 +226,12 @@
             this.trackBar4.TabIndex = 2;
             this.trackBar4.TickFrequency = 20;
             this.trackBar4.Value = 15;
+            this.trackBar4.Scroll += new System.EventHandler(this.trackBar4_Scroll_1);
             // 
             // checkBox20
             // 
             this.checkBox20.AutoSize = true;
-            this.checkBox20.Location = new System.Drawing.Point(428, 441);
+            this.checkBox20.Location = new System.Drawing.Point(432, 441);
             this.checkBox20.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox20.Name = "checkBox20";
             this.checkBox20.Size = new System.Drawing.Size(73, 31);
@@ -265,7 +265,7 @@
             // checkBox21
             // 
             this.checkBox21.AutoSize = true;
-            this.checkBox21.Location = new System.Drawing.Point(335, 441);
+            this.checkBox21.Location = new System.Drawing.Point(339, 441);
             this.checkBox21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox21.Name = "checkBox21";
             this.checkBox21.Size = new System.Drawing.Size(78, 31);
@@ -300,7 +300,7 @@
             // checkBox18
             // 
             this.checkBox18.AutoSize = true;
-            this.checkBox18.Location = new System.Drawing.Point(428, 399);
+            this.checkBox18.Location = new System.Drawing.Point(432, 399);
             this.checkBox18.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox18.Name = "checkBox18";
             this.checkBox18.Size = new System.Drawing.Size(73, 31);
@@ -311,7 +311,7 @@
             // checkBox19
             // 
             this.checkBox19.AutoSize = true;
-            this.checkBox19.Location = new System.Drawing.Point(335, 399);
+            this.checkBox19.Location = new System.Drawing.Point(339, 399);
             this.checkBox19.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox19.Name = "checkBox19";
             this.checkBox19.Size = new System.Drawing.Size(78, 31);
@@ -346,7 +346,7 @@
             // checkBox16
             // 
             this.checkBox16.AutoSize = true;
-            this.checkBox16.Location = new System.Drawing.Point(428, 357);
+            this.checkBox16.Location = new System.Drawing.Point(432, 357);
             this.checkBox16.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox16.Name = "checkBox16";
             this.checkBox16.Size = new System.Drawing.Size(73, 31);
@@ -357,7 +357,7 @@
             // checkBox17
             // 
             this.checkBox17.AutoSize = true;
-            this.checkBox17.Location = new System.Drawing.Point(335, 357);
+            this.checkBox17.Location = new System.Drawing.Point(339, 357);
             this.checkBox17.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox17.Name = "checkBox17";
             this.checkBox17.Size = new System.Drawing.Size(78, 31);
@@ -388,7 +388,6 @@
             this.label30.Size = new System.Drawing.Size(104, 27);
             this.label30.TabIndex = 40;
             this.label30.Text = "独立电堆7";
-            this.label30.Click += new System.EventHandler(this.label30_Click);
             // 
             // textBox21
             // 
@@ -804,12 +803,11 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("微软雅黑", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label9.Location = new System.Drawing.Point(456, 37);
+            this.label9.Location = new System.Drawing.Point(456, 38);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(657, 57);
             this.label9.TabIndex = 2;
             this.label9.Text = "750KW功率设备模拟器（RKP）";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // groupBox2
             // 
@@ -881,6 +879,7 @@
             this.trackBar5.TabIndex = 53;
             this.trackBar5.TickFrequency = 20;
             this.trackBar5.Value = 15;
+            this.trackBar5.Scroll += new System.EventHandler(this.trackBar5_Scroll_1);
             // 
             // checkBox22
             // 
@@ -1237,7 +1236,6 @@
             this.textBox10.TabIndex = 17;
             this.textBox10.Text = "12.3V";
             this.textBox10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox10.TextChanged += new System.EventHandler(this.textBox10_TextChanged);
             // 
             // label11
             // 
@@ -1261,7 +1259,6 @@
             this.textBox12.TabIndex = 13;
             this.textBox12.Text = "1.3456V";
             this.textBox12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox12.TextChanged += new System.EventHandler(this.textBox12_TextChanged);
             // 
             // textBox13
             // 
@@ -1482,10 +1479,6 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // timer2
-            // 
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
             // checkBox14
             // 
             this.checkBox14.AutoSize = true;
@@ -1573,6 +1566,7 @@
             this.checkBox40.TabIndex = 49;
             this.checkBox40.Text = "电流高故障模拟";
             this.checkBox40.UseVisualStyleBackColor = true;
+            //this.checkBox40.CheckedChanged += new System.EventHandler(this.checkBox40_CheckedChanged);
             // 
             // Form1
             // 
@@ -1693,7 +1687,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TrackBar trackBar3;
         private System.Windows.Forms.TrackBar trackBar6;
-        private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.TextBox textBox21;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.TextBox textBox22;

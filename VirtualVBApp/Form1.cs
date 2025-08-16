@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentModbus;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO.Ports;
@@ -7,6 +8,17 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using FluentModbus;
+using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.IO.Ports;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace VirtualVBApp
 {
@@ -16,6 +28,14 @@ namespace VirtualVBApp
         {
             InitializeComponent();
         }
+
+        private ModbusTcpClient VBC_ModbusClient;
+
+        private byte VBC_ModbusClient_ID1 = 1;
+        private byte VBC_ModbusClient_ID2 = 2;
+
+        private ModbusTcpClient AIB_ModbusClient;
+        private byte AIB_ModbusClient_ID1 = 1;
 
         private ushort A_ESV_1 = 0;
         private ushort A_ESV_2 = 0;
@@ -31,7 +51,7 @@ namespace VirtualVBApp
 
         private ushort A_OCV = 0;
         private ushort A_RCV = 0;
-        
+
         private int A_CURRENT = 0;
         private ushort A_CURRENT_VOLT = 0;
 
@@ -137,8 +157,8 @@ namespace VirtualVBApp
             A_RCV = (ushort)trackBar4.Value;
             B_RCV = (ushort)trackBar5.Value;
 
-            textBox20.Text = ((float)A_RCV ).ToString() + "mV";
-            textBox23.Text = ((float)B_RCV ).ToString() + "mV";
+            textBox20.Text = ((float)A_RCV).ToString() + "mV";
+            textBox23.Text = ((float)B_RCV).ToString() + "mV";
 
             A_CURRENT = (ushort)trackBar4.Value;
             B_CURRENT = (ushort)trackBar5.Value;
@@ -196,10 +216,7 @@ namespace VirtualVBApp
 
         private void textBox7_TextChanged(object sender, EventArgs e)
         {
-            //if (ushort.TryParse(textBox7.Text, out A_OCV))
-            //{
-            //    Console.WriteLine("A OCV ->" + A_OCV.ToString());
-            //}
+            ;
         }
 
         private void trackBar2_Scroll(object sender, EventArgs e)
@@ -285,18 +302,10 @@ namespace VirtualVBApp
 
         private int ConvertToCurrentVolt(int aCurrent)
         {
-            double scaleFactor = 5000.0 / 1500.0;
+            double scaleFactor = 4000.0 / 1000.0;
             double result = aCurrent * scaleFactor;
-
-            // 限制在 ushort 范围内
-            //if (result < 0)
-            //    result = 0;
-            //else if (result > 65535)
-            //    result = 65535;
-
             return (int)result;
         }
-
 
         // 确保变量的值不小于 10
         private void EnsureMinimumValue(ref ushort value)
@@ -318,34 +327,39 @@ namespace VirtualVBApp
 
 
         private int CHG_CNT = 0;
-        private int cstep1 = 0;
-        private int cstep2 = 0;
-        int ocv_step1 = 0;
-        int ocv_step2 = 0;
         private int DISCHG_CNT = 0;
-        private int dstep1 = 0;
-        private int dstep2 = 0;
-        int docv_step1 = 0;
-        int docv_step2 = 0;
 
         //float remain_times = 0.0;
 
-
-
-
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if(checkBox13.Checked)
+            {
+                // 清空充电逻辑计数器
+                CHG_CNT = 0;
+                // 清空放电逻辑计数器
+                DISCHG_CNT = 0;
+                label28.Text = "空转待机";
+            }
+
             if (checkBox14.Checked)
             {
+                // 清空放电逻辑计数器
+                DISCHG_CNT = 0;
                 // 充电逻辑
                 CHG_CNT++;
-                if(CHG_CNT < 340)
+                if (CHG_CNT < 340)
                 {
-                    //CHG_CNT = 0;
                     trackBar1.Value += 2;
                     trackBar2.Value += 2;
                     trackBar3.Value += 8;
                     trackBar6.Value += 8;
+                    // 确保不过充
+                    if (trackBar1.Value > 800)
+                    {
+                        CHG_CNT = 340;
+                    }
+                    label28.Text = "充电中";
                 }
                 else
                 {
@@ -354,24 +368,35 @@ namespace VirtualVBApp
                     trackBar2.Value = 800;
                     trackBar3.Value = 15500;
                     trackBar6.Value = 15500;
+
+                    label28.Text = "充电完成";
                 }
             }
             else
             {
-                CHG_CNT = 0;  // 重置充电计数器
+                CHG_CNT = 0;
             }
 
             if (checkBox15.Checked)
             {
+                // 清空充电逻辑计数器
+                CHG_CNT = 0;
                 // 放电逻辑
                 DISCHG_CNT++;
-                if(DISCHG_CNT < 340)
+                if (DISCHG_CNT < 340)
                 {
-                    //DISCHG_CNT = 0;
                     trackBar1.Value -= 2;
                     trackBar2.Value -= 2;
                     trackBar3.Value -= 8;
                     trackBar6.Value -= 8;
+
+                    // 确保不过放
+                    if (trackBar1.Value < 120)
+                    {
+                        DISCHG_CNT = 340;
+                    }
+
+                    label28.Text = "放电中";
                 }
                 else
                 {
@@ -380,13 +405,15 @@ namespace VirtualVBApp
                     trackBar2.Value = 120;
                     trackBar3.Value = 12500;
                     trackBar6.Value = 12500;
-                }   
+
+                    label28.Text = "放电完成";
+                }
             }
             else
             {
-                DISCHG_CNT = 0;  // 重置放电计数器
+                DISCHG_CNT = 0;
             }
-            //
+
             A_OCV = (ushort)trackBar3.Value;
             B_OCV = (ushort)trackBar6.Value;
 
@@ -406,25 +433,25 @@ namespace VirtualVBApp
             EnsureMaxValue(ref trackBar2Value);
             trackBar2.Value = trackBar2Value;
 
-            A_ESV_1 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            A_ESV_2 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            A_ESV_3 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            A_ESV_4 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            A_ESV_5 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            A_ESV_6 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            A_ESV_7 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            A_ESV_8 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            A_ESV_9 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
+            A_ESV_1 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());
+            A_ESV_2 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());
+            A_ESV_3 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());
+            A_ESV_4 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());
+            A_ESV_5 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());
+            A_ESV_6 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());
+            A_ESV_7 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());
+            A_ESV_8 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());
+            A_ESV_9 = (ushort)(trackBar1.Value + (ushort)GenerateRandomNumber());
 
-            B_ESV_1 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            B_ESV_2 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            B_ESV_3 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            B_ESV_4 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            B_ESV_5 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            B_ESV_6 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            B_ESV_7 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            B_ESV_8 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
-            B_ESV_9 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());  // Cast random number to ushort
+            B_ESV_1 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());
+            B_ESV_2 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());
+            B_ESV_3 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());
+            B_ESV_4 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());
+            B_ESV_5 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());
+            B_ESV_6 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());
+            B_ESV_7 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());
+            B_ESV_8 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());
+            B_ESV_9 = (ushort)(trackBar2.Value + (ushort)GenerateRandomNumber());
 
             UpdateESV(checkBox2, checkBox3, ref A_ESV_1);
             UpdateESV(checkBox4, checkBox1, ref A_ESV_2);
@@ -432,6 +459,9 @@ namespace VirtualVBApp
             UpdateESV(checkBox8, checkBox7, ref A_ESV_4);
             UpdateESV(checkBox10, checkBox9, ref A_ESV_5);
             UpdateESV(checkBox12, checkBox11, ref A_ESV_6);
+            UpdateESV(checkBox17, checkBox16, ref A_ESV_7);
+            UpdateESV(checkBox19, checkBox18, ref A_ESV_8);
+            UpdateESV(checkBox21, checkBox20, ref A_ESV_9);
 
             UpdateESV(checkBox36, checkBox34, ref B_ESV_1);
             UpdateESV(checkBox35, checkBox33, ref B_ESV_2);
@@ -439,6 +469,9 @@ namespace VirtualVBApp
             UpdateESV(checkBox30, checkBox29, ref B_ESV_4);
             UpdateESV(checkBox28, checkBox27, ref B_ESV_5);
             UpdateESV(checkBox26, checkBox25, ref B_ESV_6);
+            UpdateESV(checkBox39, checkBox38, ref B_ESV_7);
+            UpdateESV(checkBox37, checkBox24, ref B_ESV_8);
+            UpdateESV(checkBox23, checkBox22, ref B_ESV_9);
 
             A_ESV_TOTAL = Math.Min((ushort)(A_ESV_1 + A_ESV_2 + A_ESV_3), (ushort)(A_ESV_4 + A_ESV_5 + A_ESV_6));
             B_ESV_TOTAL = Math.Min((ushort)(B_ESV_1 + B_ESV_2 + B_ESV_3), (ushort)(B_ESV_4 + B_ESV_5 + B_ESV_6));
@@ -468,7 +501,6 @@ namespace VirtualVBApp
             textBox28.Text = ((float)B_ESV_9 / 10.0).ToString("F1") + "V";
             textBox10.Text = ((float)B_ESV_TOTAL / 10.0).ToString("F1") + "V";
 
-
             if (checkBox13.Checked)
             {
                 A_CURRENT = 0 + (int)GenerateRandomNumber();
@@ -494,15 +526,83 @@ namespace VirtualVBApp
 
             Console.WriteLine("---> ACV:" + (ConvertToCurrentVolt(A_CURRENT)).ToString());
             Console.WriteLine("---> BCV:" + (ConvertToCurrentVolt(B_CURRENT)).ToString());
-            Console.WriteLine("---> BCV:" + (ConvertToCurrentVolt(C_CURRENT)).ToString());
+            Console.WriteLine("---> CCV:" + (ConvertToCurrentVolt(C_CURRENT)).ToString());
 
-            textBox8.Text  = ((float)A_CURRENT).ToString("F1") + "A";
+            textBox8.Text = ((float)A_CURRENT).ToString("F1") + "A";
             textBox11.Text = ((float)B_CURRENT).ToString("F1") + "A";
-            textBox19.Text = ((float)B_CURRENT).ToString("F1") + "A";
+            textBox19.Text = ((float)C_CURRENT).ToString("F1") + "A";
 
             A_CURRENT_VOLT = (ushort)ConvertToCurrentVolt(A_CURRENT);
             B_CURRENT_VOLT = (ushort)ConvertToCurrentVolt(B_CURRENT);
-            //
+
+            // 发送 Modbus 请求到一个新线程（异步实现）
+            ushort startAddress = 101;
+
+            // 13个数据每个包
+            ushort[] values =
+            {
+                A_ESV_1, A_ESV_2, A_ESV_3,
+                A_ESV_4, A_ESV_5, A_ESV_6,
+                A_ESV_7, A_ESV_8, A_ESV_9,
+                A_ESV_TOTAL, A_OCV, A_RCV, A_CURRENT_VOLT
+            };
+
+            try
+            {
+                VBC_ModbusClient.WriteMultipleRegisters(VBC_ModbusClient_ID1, startAddress, values);
+            }
+            catch (FluentModbus.ModbusException ex)
+            {
+                Console.WriteLine($"Modbus 写入异常: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"其他异常: {ex.Message}");
+            }
+
+            Thread.Sleep(240); // 确保 Modbus 请求有足够的时间完成
+
+            // 13个数据每个包
+            ushort[] values2 =
+            {
+                B_ESV_1, B_ESV_2, B_ESV_3,
+                B_ESV_4, B_ESV_5, B_ESV_6,
+                B_ESV_7, B_ESV_8, B_ESV_9,
+                B_ESV_TOTAL, B_OCV, B_RCV, B_CURRENT_VOLT
+            };
+
+            try
+            {
+                VBC_ModbusClient.WriteMultipleRegisters(VBC_ModbusClient_ID2, startAddress, values2);
+            }
+            catch (FluentModbus.ModbusException ex)
+            {
+                Console.WriteLine($"Modbus 写入异常: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"其他异常: {ex.Message}");
+            }
+        }
+
+        // 异步写入 Modbus 寄存器，并做异常捕获
+        private void WriteModbusRegistersAsync(int clientId, ushort startAddress, ushort[] values)
+        {
+            Task.Run(() =>
+            {
+                try
+                {
+                    VBC_ModbusClient.WriteMultipleRegisters(clientId, startAddress, values);
+                }
+                catch (FluentModbus.ModbusException ex)
+                {
+                    Console.WriteLine($"Modbus 写入异常: {ex.Message}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"其他异常: {ex.Message}");
+                }
+            });
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -510,18 +610,32 @@ namespace VirtualVBApp
             button1.ForeColor = Color.Green;
             Thread.Sleep(200);
             timer1.Enabled = true;
-        }
 
-        private void textBox12_TextChanged(object sender, EventArgs e)
-        {
-            ;
-        }
 
-        private void textBox10_TextChanged(object sender, EventArgs e)
-        {
-            ;
-        }
+            try
+            {
+                // 初始化 Modbus TCP 客户端     
+                VBC_ModbusClient = new ModbusTcpClient();
+                VBC_ModbusClient.Connect("192.168.1.135", ModbusEndianness.BigEndian);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("电压板 Modbus TCP 连接失败: " + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            try
+            {
+                AIB_ModbusClient = new ModbusTcpClient();
+                AIB_ModbusClient.Connect("192.168.1.134", ModbusEndianness.BigEndian);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("电流板 Modbus TCP 连接失败: " + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }   
+            //VBC_ModbusClient.Connect("127.0.0.1", ModbusEndianness.BigEndian);
+        }
         private void trackBar3_Scroll(object sender, EventArgs e)
         {
             A_OCV = (ushort)trackBar3.Value;
@@ -530,7 +644,6 @@ namespace VirtualVBApp
             textBox7.Text = ((float)A_OCV / 10000.0).ToString("F4");
             textBox12.Text = ((float)B_OCV / 10000.0).ToString("F4");
         }
-
         private void trackBar6_Scroll(object sender, EventArgs e)
         {
             B_OCV = (ushort)trackBar6.Value;
@@ -566,21 +679,6 @@ namespace VirtualVBApp
             Application.Exit();
         }
 
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            ;
-        }
-
-        private void label24_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label27_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void checkBox14_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox14.Checked)
@@ -589,12 +687,6 @@ namespace VirtualVBApp
                 checkBox15.Checked = false;
             }
         }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void checkBox13_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox13.Checked)
@@ -613,19 +705,22 @@ namespace VirtualVBApp
             }
         }
 
-        private void textBox24_TextChanged(object sender, EventArgs e)
+        private void trackBar4_Scroll_1(object sender, EventArgs e)
         {
-            ;
+            A_RCV = (ushort)trackBar4.Value;
+            B_RCV = (ushort)(A_RCV + (ushort)GenerateRandomNumber());
+            trackBar5.Value = trackBar4.Value;
+            textBox20.Text = ((float)A_RCV).ToString() + "mV";
+            textBox23.Text = ((float)B_RCV).ToString() + "mV";
         }
 
-        private void groupBox4_Enter(object sender, EventArgs e)
+        private void trackBar5_Scroll_1(object sender, EventArgs e)
         {
-
-        }
-
-        private void label30_Click(object sender, EventArgs e)
-        {
-
+            A_RCV = (ushort)trackBar5.Value;
+            B_RCV = (ushort)(A_RCV + (ushort)GenerateRandomNumber());
+            trackBar4.Value = trackBar5.Value;
+            textBox20.Text = ((float)A_RCV).ToString() + "mV";
+            textBox23.Text = ((float)B_RCV).ToString() + "mV";
         }
     }
 }
