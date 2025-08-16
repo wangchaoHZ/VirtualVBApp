@@ -35,7 +35,7 @@ namespace VirtualVBApp
         private byte VBC_ModbusClient_ID2 = 2;
 
         private ModbusTcpClient AIB_ModbusClient;
-        private byte AIB_ModbusClient_ID1 = 1;
+        private byte AIB_ModbusClient_ID1 = 6;
 
         private ushort A_ESV_1 = 0;
         private ushort A_ESV_2 = 0;
@@ -160,9 +160,6 @@ namespace VirtualVBApp
             textBox20.Text = ((float)A_RCV).ToString() + "mV";
             textBox23.Text = ((float)B_RCV).ToString() + "mV";
 
-            A_CURRENT = (ushort)trackBar4.Value;
-            B_CURRENT = (ushort)trackBar5.Value;
-
             textBox8.Text = ((float)A_CURRENT / 10.0).ToString("F1") + "A";
             textBox11.Text = ((float)B_CURRENT / 10.0).ToString("F1") + "A";
 
@@ -172,6 +169,13 @@ namespace VirtualVBApp
             textBox22.Text = ((float)0.0).ToString("F1") + "KW";
             // 总功率
             //textBox23.Text = ((float)0.0).ToString("F1") + "KW";
+
+            A_CURRENT = 0;
+            B_CURRENT = 0;
+            C_CURRENT = 0;
+            textBox8.Text = ((float)A_CURRENT).ToString("F1")  + "A";
+            textBox11.Text = ((float)B_CURRENT).ToString("F1") + "A";
+            textBox19.Text = ((float)C_CURRENT).ToString("F1") + "A";
         }
 
         private void label11_Click(object sender, EventArgs e)
@@ -304,8 +308,19 @@ namespace VirtualVBApp
         {
             double scaleFactor = 4000.0 / 1000.0;
             double result = aCurrent * scaleFactor;
-            return (int)result;
+            return (int)Math.Round(result);
         }
+
+        private int ConvertToCurrentAIBV(int aCurrent)
+        {
+            // 限制输入范围，防止超量程
+            if (aCurrent < -1000) aCurrent = -1000;
+            if (aCurrent > 1000) aCurrent = 1000;
+
+            double result = 4000 + (aCurrent + 1000) * 8.0;
+            return (int)Math.Round(result);
+        }
+
 
         // 确保变量的值不小于 10
         private void EnsureMinimumValue(ref ushort value)
@@ -331,7 +346,7 @@ namespace VirtualVBApp
 
         //float remain_times = 0.0;
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private async void timer1_Tick(object sender, EventArgs e)
         {
             if(checkBox13.Checked)
             {
@@ -524,65 +539,97 @@ namespace VirtualVBApp
                 C_CURRENT = 2 - 230 - (int)GenerateRandomNumber();
             }
 
-            Console.WriteLine("---> ACV:" + (ConvertToCurrentVolt(A_CURRENT)).ToString());
-            Console.WriteLine("---> BCV:" + (ConvertToCurrentVolt(B_CURRENT)).ToString());
-            Console.WriteLine("---> CCV:" + (ConvertToCurrentVolt(C_CURRENT)).ToString());
-
             textBox8.Text = ((float)A_CURRENT).ToString("F1") + "A";
             textBox11.Text = ((float)B_CURRENT).ToString("F1") + "A";
             textBox19.Text = ((float)C_CURRENT).ToString("F1") + "A";
 
             A_CURRENT_VOLT = (ushort)ConvertToCurrentVolt(A_CURRENT);
             B_CURRENT_VOLT = (ushort)ConvertToCurrentVolt(B_CURRENT);
+            C_CURRENT_VAI  = (ushort)ConvertToCurrentAIBV(C_CURRENT);
 
-            // 发送 Modbus 请求到一个新线程（异步实现）
+            Console.WriteLine("Sensor支路1(V):" + A_CURRENT_VOLT.ToString());
+            Console.WriteLine("Sensor支路2(V):" + B_CURRENT_VOLT.ToString());
+            Console.WriteLine("Sensor支路3(A):" + C_CURRENT_VAI.ToString());
+                
+            await Task.Run(() =>
+            {
+
+                ushort Cur_Reg_Start_Address = 0;
+
+                try
+                {
+                    AIB_ModbusClient.WriteSingleRegister(AIB_ModbusClient_ID1, Cur_Reg_Start_Address, C_CURRENT_VAI);
+                }
+                catch (FluentModbus.ModbusException ex)
+                {
+                    // 捕获 Modbus 异常
+                    Console.WriteLine($"电流传感器 Modbus写入异常: {ex.Message}");
+                }
+                catch (Exception ex)
+                {
+                    // 捕获其他异常
+                    Console.WriteLine($"电流传感器 其他异常: {ex.Message}");
+                }
+            });
+
             ushort startAddress = 101;
 
-            // 13个数据每个包
-            ushort[] values =
+            // 更新 电压板1 寄存器
+            await Task.Run(() =>
             {
-                A_ESV_1, A_ESV_2, A_ESV_3,
-                A_ESV_4, A_ESV_5, A_ESV_6,
-                A_ESV_7, A_ESV_8, A_ESV_9,
-                A_ESV_TOTAL, A_OCV, A_RCV, A_CURRENT_VOLT
-            };
+                // 13个数据每个包
+                ushort[] values =
+                {
+                    A_ESV_1, A_ESV_2, A_ESV_3,
+                    A_ESV_4, A_ESV_5, A_ESV_6,
+                    A_ESV_7, A_ESV_8, A_ESV_9,
+                    A_ESV_TOTAL, A_OCV, A_RCV, A_CURRENT_VOLT
+                };
 
-            try
-            {
-                VBC_ModbusClient.WriteMultipleRegisters(VBC_ModbusClient_ID1, startAddress, values);
-            }
-            catch (FluentModbus.ModbusException ex)
-            {
-                Console.WriteLine($"Modbus 写入异常: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"其他异常: {ex.Message}");
-            }
+                try
+                {
+                    VBC_ModbusClient.WriteMultipleRegisters(VBC_ModbusClient_ID1, startAddress, values);
+                }
+                catch (FluentModbus.ModbusException ex)
+                {
+                    Console.WriteLine($"Modbus 写入异常: {ex.Message}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"其他异常: {ex.Message}");
+                }
+                // 确保 Modbus 请求有足够的时间完成
+                Thread.Sleep(200);
+            });
 
-            Thread.Sleep(240); // 确保 Modbus 请求有足够的时间完成
 
-            // 13个数据每个包
-            ushort[] values2 =
+            // 更新 电压板2 寄存器
+            await Task.Run(() =>
             {
-                B_ESV_1, B_ESV_2, B_ESV_3,
-                B_ESV_4, B_ESV_5, B_ESV_6,
-                B_ESV_7, B_ESV_8, B_ESV_9,
-                B_ESV_TOTAL, B_OCV, B_RCV, B_CURRENT_VOLT
-            };
+                // 13个数据每个包
+                ushort[] values =
+                {
+                    B_ESV_1, B_ESV_2, B_ESV_3,
+                    B_ESV_4, B_ESV_5, B_ESV_6,
+                    B_ESV_7, B_ESV_8, B_ESV_9,
+                    B_ESV_TOTAL, B_OCV, B_RCV, B_CURRENT_VOLT
+                };
 
-            try
-            {
-                VBC_ModbusClient.WriteMultipleRegisters(VBC_ModbusClient_ID2, startAddress, values2);
-            }
-            catch (FluentModbus.ModbusException ex)
-            {
-                Console.WriteLine($"Modbus 写入异常: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"其他异常: {ex.Message}");
-            }
+                try
+                {
+                    VBC_ModbusClient.WriteMultipleRegisters(VBC_ModbusClient_ID2, startAddress, values);
+                }
+                catch (FluentModbus.ModbusException ex)
+                {
+                    Console.WriteLine($"Modbus 写入异常: {ex.Message}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"其他异常: {ex.Message}");
+                }
+                // 确保 Modbus 请求有足够的时间完成
+                Thread.Sleep(200);
+            });
         }
 
         // 异步写入 Modbus 寄存器，并做异常捕获
@@ -722,6 +769,7 @@ namespace VirtualVBApp
             textBox20.Text = ((float)A_RCV).ToString() + "mV";
             textBox23.Text = ((float)B_RCV).ToString() + "mV";
         }
+
     }
 }
 public class ModbusRtuSlave
