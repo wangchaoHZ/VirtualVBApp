@@ -421,7 +421,7 @@
             this.trackBar3.Size = new System.Drawing.Size(165, 56);
             this.trackBar3.TabIndex = 36;
             this.trackBar3.TickFrequency = 2000;
-            this.trackBar3.Value = 12519;
+            this.trackBar3.Value = 12510;
             this.trackBar3.Scroll += new System.EventHandler(this.trackBar3_Scroll);
             // 
             // textBox1
@@ -580,7 +580,7 @@
             this.trackBar1.Size = new System.Drawing.Size(475, 56);
             this.trackBar1.TabIndex = 3;
             this.trackBar1.TickFrequency = 20;
-            this.trackBar1.Value = 120;
+            this.trackBar1.Value = 651;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // textBox9
@@ -993,7 +993,7 @@
             this.trackBar6.Size = new System.Drawing.Size(165, 56);
             this.trackBar6.TabIndex = 38;
             this.trackBar6.TickFrequency = 2000;
-            this.trackBar6.Value = 12518;
+            this.trackBar6.Value = 12511;
             this.trackBar6.Scroll += new System.EventHandler(this.trackBar6_Scroll);
             // 
             // checkBox37
@@ -1218,7 +1218,7 @@
             this.trackBar2.Size = new System.Drawing.Size(475, 56);
             this.trackBar2.TabIndex = 3;
             this.trackBar2.TickFrequency = 20;
-            this.trackBar2.Value = 120;
+            this.trackBar2.Value = 651;
             this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
             // 
             // textBox10
@@ -1475,7 +1475,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 1000;
+            this.timer1.Interval = 1500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // checkBox14

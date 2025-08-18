@@ -284,13 +284,18 @@ namespace VirtualVBApp
 
         private ushort GenerateRandomNumber()
         {
-            // 生成一个范围在 0 到 10 之间的随机数
+            // 生成一个范围在 0 到 2 之间的随机数
+            int randomNumber = random.Next(0, 2);
+            int finalNumber = randomNumber;
+            // 如果你需要返回的是 ushort 数字，建议用 Math.Abs 取绝对值（即转换为正数）
+            return (ushort)Math.Abs(finalNumber);  // 返回正数
+        }
+
+        private ushort GenerateCurrentRandomNumber()
+        {
+            // 生成一个范围在 0 到 2 之间的随机数
             int randomNumber = random.Next(0, 8);
-
-            // 通过生成的数值来表示范围 -5 到 5
-            // 如果 randomNumber 小于 5，则为负数，否则为正数
-            int finalNumber = randomNumber - 3;  // -5 到 5 之间的值
-
+            int finalNumber = randomNumber - 5;
             // 如果你需要返回的是 ushort 数字，建议用 Math.Abs 取绝对值（即转换为正数）
             return (ushort)Math.Abs(finalNumber);  // 返回正数
         }
@@ -365,12 +370,12 @@ namespace VirtualVBApp
                 CHG_CNT++;
                 if (CHG_CNT < 340)
                 {
-                    trackBar1.Value += 2;
-                    trackBar2.Value += 2;
-                    trackBar3.Value += 8;
-                    trackBar6.Value += 8;
+                    trackBar1.Value += 1;
+                    trackBar2.Value += 1;
+                    trackBar3.Value += 19;
+                    trackBar6.Value += 19;
                     // 确保不过充
-                    if (trackBar1.Value > 800)
+                    if (trackBar1.Value > 805)
                     {
                         CHG_CNT = 340;
                     }
@@ -379,8 +384,8 @@ namespace VirtualVBApp
                 else
                 {
                     CHG_CNT = 340;
-                    trackBar1.Value = 800;
-                    trackBar2.Value = 800;
+                    trackBar1.Value = 805;
+                    trackBar2.Value = 805;
                     trackBar3.Value = 15500;
                     trackBar6.Value = 15500;
 
@@ -400,13 +405,13 @@ namespace VirtualVBApp
                 DISCHG_CNT++;
                 if (DISCHG_CNT < 340)
                 {
-                    trackBar1.Value -= 2;
-                    trackBar2.Value -= 2;
-                    trackBar3.Value -= 8;
-                    trackBar6.Value -= 8;
+                    trackBar1.Value -= 1;
+                    trackBar2.Value -= 1;
+                    trackBar3.Value -= 19;
+                    trackBar6.Value -= 19;
 
                     // 确保不过放
-                    if (trackBar1.Value < 120)
+                    if (trackBar1.Value < 650)
                     {
                         DISCHG_CNT = 340;
                     }
@@ -416,8 +421,8 @@ namespace VirtualVBApp
                 else
                 {
                     DISCHG_CNT = 340;
-                    trackBar1.Value = 120;
-                    trackBar2.Value = 120;
+                    trackBar1.Value = 650;
+                    trackBar2.Value = 650;
                     trackBar3.Value = 12500;
                     trackBar6.Value = 12500;
 
@@ -518,25 +523,25 @@ namespace VirtualVBApp
 
             if (checkBox13.Checked)
             {
-                A_CURRENT = 0 + (int)GenerateRandomNumber();
-                B_CURRENT = 1 + (int)GenerateRandomNumber();
-                C_CURRENT = 2 + (int)GenerateRandomNumber();
+                A_CURRENT = 0 + (int)GenerateCurrentRandomNumber();
+                B_CURRENT = 1 + (int)GenerateCurrentRandomNumber();
+                C_CURRENT = 2 + (int)GenerateCurrentRandomNumber();
             }
 
             if (checkBox14.Checked)
             {
                 // 充电逻辑
-                A_CURRENT = 0 + 230 + (int)GenerateRandomNumber();
-                B_CURRENT = 1 + 230 + (int)GenerateRandomNumber();
-                C_CURRENT = 2 + 230 + (int)GenerateRandomNumber();
+                A_CURRENT = 0 + 230 + (int)GenerateCurrentRandomNumber();
+                B_CURRENT = 1 + 230 + (int)GenerateCurrentRandomNumber();
+                C_CURRENT = 2 + 230 + (int)GenerateCurrentRandomNumber();
             }
 
             if (checkBox15.Checked)
             {
                 // 放电逻辑
-                A_CURRENT = 0 - 230 - (int)GenerateRandomNumber();
-                B_CURRENT = 1 - 230 - (int)GenerateRandomNumber();
-                C_CURRENT = 2 - 230 - (int)GenerateRandomNumber();
+                A_CURRENT = 0 - 230 - (int)GenerateCurrentRandomNumber();
+                B_CURRENT = 1 - 230 - (int)GenerateCurrentRandomNumber();
+                C_CURRENT = 2 - 230 - (int)GenerateCurrentRandomNumber();
             }
 
             textBox8.Text = ((float)A_CURRENT).ToString("F1") + "A";
@@ -554,7 +559,7 @@ namespace VirtualVBApp
             await Task.Run(() =>
             {
 
-                ushort Cur_Reg_Start_Address = 0;
+                ushort Cur_Reg_Start_Address = 10;
 
                 try
                 {
