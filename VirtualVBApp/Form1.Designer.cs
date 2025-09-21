@@ -142,7 +142,14 @@
             this.label20 = new System.Windows.Forms.Label();
             this.textBox19 = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.checkBox41 = new System.Windows.Forms.CheckBox();
             this.checkBox40 = new System.Windows.Forms.CheckBox();
+            this.trackBar7 = new System.Windows.Forms.TrackBar();
+            this.label23 = new System.Windows.Forms.Label();
+            this.textBox24 = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
@@ -153,6 +160,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar7)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -210,14 +219,14 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(533, 847);
+            this.groupBox1.Size = new System.Drawing.Size(533, 724);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "（1#系统）功率单元";
             // 
             // trackBar4
             // 
-            this.trackBar4.Location = new System.Drawing.Point(339, 769);
+            this.trackBar4.Location = new System.Drawing.Point(339, 661);
             this.trackBar4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.trackBar4.Maximum = 200;
             this.trackBar4.Name = "trackBar4";
@@ -243,7 +252,7 @@
             this.textBox20.BackColor = System.Drawing.Color.Black;
             this.textBox20.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox20.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.textBox20.Location = new System.Drawing.Point(153, 780);
+            this.textBox20.Location = new System.Drawing.Point(153, 672);
             this.textBox20.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox20.Multiline = true;
             this.textBox20.Name = "textBox20";
@@ -255,7 +264,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(48, 784);
+            this.label21.Location = new System.Drawing.Point(48, 676);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(53, 27);
             this.label21.TabIndex = 48;
@@ -393,7 +402,7 @@
             this.textBox21.BackColor = System.Drawing.Color.Black;
             this.textBox21.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox21.ForeColor = System.Drawing.Color.DeepPink;
-            this.textBox21.Location = new System.Drawing.Point(153, 660);
+            this.textBox21.Location = new System.Drawing.Point(153, 552);
             this.textBox21.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox21.Multiline = true;
             this.textBox21.Name = "textBox21";
@@ -406,7 +415,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(48, 664);
+            this.label25.Location = new System.Drawing.Point(48, 556);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(92, 27);
             this.label25.TabIndex = 38;
@@ -414,7 +423,7 @@
             // 
             // trackBar3
             // 
-            this.trackBar3.Location = new System.Drawing.Point(339, 709);
+            this.trackBar3.Location = new System.Drawing.Point(339, 601);
             this.trackBar3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.trackBar3.Maximum = 20000;
             this.trackBar3.Name = "trackBar3";
@@ -588,7 +597,7 @@
             this.textBox9.BackColor = System.Drawing.Color.Black;
             this.textBox9.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox9.ForeColor = System.Drawing.Color.Cyan;
-            this.textBox9.Location = new System.Drawing.Point(153, 600);
+            this.textBox9.Location = new System.Drawing.Point(153, 492);
             this.textBox9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox9.Multiline = true;
             this.textBox9.Name = "textBox9";
@@ -601,7 +610,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(48, 604);
+            this.label10.Location = new System.Drawing.Point(48, 496);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(72, 27);
             this.label10.TabIndex = 16;
@@ -612,7 +621,7 @@
             this.textBox7.BackColor = System.Drawing.Color.Black;
             this.textBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox7.ForeColor = System.Drawing.Color.Salmon;
-            this.textBox7.Location = new System.Drawing.Point(153, 720);
+            this.textBox7.Location = new System.Drawing.Point(153, 612);
             this.textBox7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox7.Multiline = true;
             this.textBox7.Name = "textBox7";
@@ -640,7 +649,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(48, 724);
+            this.label7.Location = new System.Drawing.Point(48, 616);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(55, 27);
             this.label7.TabIndex = 12;
@@ -863,14 +872,14 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(533, 847);
+            this.groupBox2.Size = new System.Drawing.Size(533, 724);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "（2#系统）功率单元";
             // 
             // trackBar5
             // 
-            this.trackBar5.Location = new System.Drawing.Point(340, 769);
+            this.trackBar5.Location = new System.Drawing.Point(340, 661);
             this.trackBar5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.trackBar5.Maximum = 200;
             this.trackBar5.Name = "trackBar5";
@@ -896,7 +905,7 @@
             this.textBox23.BackColor = System.Drawing.Color.Black;
             this.textBox23.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox23.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.textBox23.Location = new System.Drawing.Point(153, 780);
+            this.textBox23.Location = new System.Drawing.Point(153, 672);
             this.textBox23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox23.Multiline = true;
             this.textBox23.Name = "textBox23";
@@ -908,7 +917,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(48, 784);
+            this.label22.Location = new System.Drawing.Point(48, 676);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(53, 27);
             this.label22.TabIndex = 51;
@@ -919,7 +928,7 @@
             this.textBox22.BackColor = System.Drawing.Color.Black;
             this.textBox22.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox22.ForeColor = System.Drawing.Color.DeepPink;
-            this.textBox22.Location = new System.Drawing.Point(153, 660);
+            this.textBox22.Location = new System.Drawing.Point(153, 552);
             this.textBox22.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox22.Multiline = true;
             this.textBox22.Name = "textBox22";
@@ -943,7 +952,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(48, 664);
+            this.label26.Location = new System.Drawing.Point(48, 556);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(92, 27);
             this.label26.TabIndex = 18;
@@ -986,7 +995,7 @@
             // 
             // trackBar6
             // 
-            this.trackBar6.Location = new System.Drawing.Point(340, 709);
+            this.trackBar6.Location = new System.Drawing.Point(340, 601);
             this.trackBar6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.trackBar6.Maximum = 20000;
             this.trackBar6.Name = "trackBar6";
@@ -1226,7 +1235,7 @@
             this.textBox10.BackColor = System.Drawing.Color.Black;
             this.textBox10.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox10.ForeColor = System.Drawing.Color.Cyan;
-            this.textBox10.Location = new System.Drawing.Point(153, 600);
+            this.textBox10.Location = new System.Drawing.Point(153, 492);
             this.textBox10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox10.Multiline = true;
             this.textBox10.Name = "textBox10";
@@ -1239,7 +1248,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(48, 604);
+            this.label11.Location = new System.Drawing.Point(48, 496);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(72, 27);
             this.label11.TabIndex = 16;
@@ -1250,7 +1259,7 @@
             this.textBox12.BackColor = System.Drawing.Color.Black;
             this.textBox12.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox12.ForeColor = System.Drawing.Color.Salmon;
-            this.textBox12.Location = new System.Drawing.Point(153, 720);
+            this.textBox12.Location = new System.Drawing.Point(153, 612);
             this.textBox12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox12.Multiline = true;
             this.textBox12.Name = "textBox12";
@@ -1277,7 +1286,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(48, 724);
+            this.label13.Location = new System.Drawing.Point(48, 616);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(55, 27);
             this.label13.TabIndex = 12;
@@ -1441,7 +1450,7 @@
             this.checkBox13.AutoSize = true;
             this.checkBox13.Font = new System.Drawing.Font("微软雅黑", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkBox13.ForeColor = System.Drawing.Color.Blue;
-            this.checkBox13.Location = new System.Drawing.Point(65, 54);
+            this.checkBox13.Location = new System.Drawing.Point(65, 42);
             this.checkBox13.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox13.Name = "checkBox13";
             this.checkBox13.Size = new System.Drawing.Size(207, 41);
@@ -1483,7 +1492,7 @@
             this.checkBox14.AutoSize = true;
             this.checkBox14.Font = new System.Drawing.Font("微软雅黑", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkBox14.ForeColor = System.Drawing.Color.Green;
-            this.checkBox14.Location = new System.Drawing.Point(65, 125);
+            this.checkBox14.Location = new System.Drawing.Point(65, 91);
             this.checkBox14.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox14.Name = "checkBox14";
             this.checkBox14.Size = new System.Drawing.Size(207, 41);
@@ -1497,7 +1506,7 @@
             this.checkBox15.AutoSize = true;
             this.checkBox15.Font = new System.Drawing.Font("微软雅黑", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkBox15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.checkBox15.Location = new System.Drawing.Point(65, 195);
+            this.checkBox15.Location = new System.Drawing.Point(65, 136);
             this.checkBox15.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBox15.Name = "checkBox15";
             this.checkBox15.Size = new System.Drawing.Size(207, 41);
@@ -1512,7 +1521,7 @@
             this.label28.BackColor = System.Drawing.Color.Lime;
             this.label28.Font = new System.Drawing.Font("华文中宋", 25.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label28.ForeColor = System.Drawing.Color.Navy;
-            this.label28.Location = new System.Drawing.Point(1195, 45);
+            this.label28.Location = new System.Drawing.Point(1202, 45);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(198, 49);
             this.label28.TabIndex = 43;
@@ -1544,6 +1553,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label24);
+            this.groupBox3.Controls.Add(this.checkBox41);
             this.groupBox3.Controls.Add(this.checkBox15);
             this.groupBox3.Controls.Add(this.checkBox14);
             this.groupBox3.Controls.Add(this.checkBox13);
@@ -1555,16 +1566,104 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "PCS操作管理";
             // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label24.Location = new System.Drawing.Point(218, 207);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(59, 20);
+            this.label24.TabIndex = 59;
+            this.label24.Text = "COUNT";
+            this.label24.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // checkBox41
+            // 
+            this.checkBox41.AutoSize = true;
+            this.checkBox41.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox41.Location = new System.Drawing.Point(65, 206);
+            this.checkBox41.Name = "checkBox41";
+            this.checkBox41.Size = new System.Drawing.Size(151, 24);
+            this.checkBox41.TabIndex = 58;
+            this.checkBox41.Text = "充放自动切换";
+            this.checkBox41.UseVisualStyleBackColor = true;
+            // 
             // checkBox40
             // 
             this.checkBox40.AutoSize = true;
             this.checkBox40.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.checkBox40.Location = new System.Drawing.Point(1204, 655);
+            this.checkBox40.Location = new System.Drawing.Point(1137, 664);
             this.checkBox40.Name = "checkBox40";
             this.checkBox40.Size = new System.Drawing.Size(174, 31);
             this.checkBox40.TabIndex = 49;
             this.checkBox40.Text = "电流高故障模拟";
             this.checkBox40.UseVisualStyleBackColor = true;
+            // 
+            // trackBar7
+            // 
+            this.trackBar7.BackColor = System.Drawing.Color.White;
+            this.trackBar7.Location = new System.Drawing.Point(446, 49);
+            this.trackBar7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.trackBar7.Maximum = 750;
+            this.trackBar7.Minimum = 300;
+            this.trackBar7.Name = "trackBar7";
+            this.trackBar7.Size = new System.Drawing.Size(627, 56);
+            this.trackBar7.TabIndex = 54;
+            this.trackBar7.TickFrequency = 20;
+            this.trackBar7.Value = 300;
+            this.trackBar7.Scroll += new System.EventHandler(this.trackBar7_Scroll);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("微软雅黑", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label23.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label23.Location = new System.Drawing.Point(22, 38);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(170, 50);
+            this.label23.TabIndex = 55;
+            this.label23.Text = "当前功率";
+            // 
+            // textBox24
+            // 
+            this.textBox24.BackColor = System.Drawing.Color.Black;
+            this.textBox24.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox24.Font = new System.Drawing.Font("微软雅黑", 22.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox24.ForeColor = System.Drawing.Color.PaleGreen;
+            this.textBox24.Location = new System.Drawing.Point(201, 38);
+            this.textBox24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox24.Multiline = true;
+            this.textBox24.Name = "textBox24";
+            this.textBox24.Size = new System.Drawing.Size(226, 52);
+            this.textBox24.TabIndex = 56;
+            this.textBox24.Text = "300KW";
+            this.textBox24.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.button3.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button3.Location = new System.Drawing.Point(1361, 656);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(106, 46);
+            this.button3.TabIndex = 57;
+            this.button3.Text = "参数复位";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label23);
+            this.groupBox4.Controls.Add(this.trackBar7);
+            this.groupBox4.Controls.Add(this.textBox24);
+            this.groupBox4.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox4.Location = new System.Drawing.Point(20, 877);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(1093, 116);
+            this.groupBox4.TabIndex = 58;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "PCS功率输出";
             // 
             // Form1
             // 
@@ -1572,6 +1671,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1495, 1009);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.checkBox40);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.label20);
@@ -1587,6 +1687,7 @@
             this.Controls.Add(this.textBox8);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.textBox11);
+            this.Controls.Add(this.groupBox4);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
@@ -1606,6 +1707,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar7)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1726,6 +1830,13 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox checkBox40;
+        private System.Windows.Forms.TrackBar trackBar7;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox textBox24;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.CheckBox checkBox41;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.GroupBox groupBox4;
     }
 }
 

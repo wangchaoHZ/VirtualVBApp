@@ -79,6 +79,8 @@ namespace VirtualVBApp
 
 
         private int cycle_times = 0;
+        private int TOTAL_POWER = 0;
+
 
 
         // 创建四个从站实例，分别为地址11、22、33、44
@@ -176,6 +178,10 @@ namespace VirtualVBApp
             textBox8.Text = ((float)A_CURRENT).ToString("F1")  + "A";
             textBox11.Text = ((float)B_CURRENT).ToString("F1") + "A";
             textBox19.Text = ((float)C_CURRENT).ToString("F1") + "A";
+
+
+            TOTAL_POWER = trackBar7.Value;
+            textBox24.Text = TOTAL_POWER.ToString() + "KW"; 
         }
 
         private void label11_Click(object sender, EventArgs e)
@@ -349,11 +355,19 @@ namespace VirtualVBApp
         private int CHG_CNT = 0;
         private int DISCHG_CNT = 0;
 
-        //float remain_times = 0.0;
+
+        private int sw_count = 0;
 
         private async void timer1_Tick(object sender, EventArgs e)
         {
-            if(checkBox13.Checked)
+
+            if (checkBox41.Checked == false)
+            {
+                sw_count = 0;
+                label24.Text = sw_count.ToString();
+            }
+
+            if (checkBox13.Checked)
             {
                 // 清空充电逻辑计数器
                 CHG_CNT = 0;
@@ -368,28 +382,65 @@ namespace VirtualVBApp
                 DISCHG_CNT = 0;
                 // 充电逻辑
                 CHG_CNT++;
-                if (CHG_CNT < 340)
+                if (CHG_CNT < 155)
                 {
                     trackBar1.Value += 1;
                     trackBar2.Value += 1;
                     trackBar3.Value += 19;
                     trackBar6.Value += 19;
+
+
+                    if(trackBar1.Value < 688)
+                    {
+                        trackBar7.Value = 355 + (int)(GenerateRandomNumber() * GenerateRandomNumber());
+                        TOTAL_POWER = trackBar7.Value;
+                        textBox24.Text = TOTAL_POWER.ToString() + "KW";
+                    }
+                    else if(trackBar1.Value < 760)
+                    {
+                        trackBar7.Value = 426 + (int)(GenerateRandomNumber() * GenerateRandomNumber());
+                        TOTAL_POWER = trackBar7.Value;
+                        textBox24.Text = TOTAL_POWER.ToString() + "KW";
+                    }
+                    else if(trackBar1.Value < 805)
+                    {
+                        trackBar7.Value = 555 + (int)(GenerateRandomNumber() * GenerateRandomNumber());
+                        TOTAL_POWER = trackBar7.Value;
+                        textBox24.Text = TOTAL_POWER.ToString() + "KW";
+                    }
+                    else
+                    {
+                        trackBar7.Value = 748 + (int)(GenerateRandomNumber() * GenerateRandomNumber());
+                        TOTAL_POWER = trackBar7.Value;
+                        textBox24.Text = TOTAL_POWER.ToString() + "KW";
+                    }
+
                     // 确保不过充
                     if (trackBar1.Value > 805)
                     {
-                        CHG_CNT = 340;
+                        CHG_CNT = 155;
                     }
                     label28.Text = "充电中";
                 }
                 else
                 {
-                    CHG_CNT = 340;
+                    CHG_CNT = 155;
                     trackBar1.Value = 805;
                     trackBar2.Value = 805;
                     trackBar3.Value = 15500;
                     trackBar6.Value = 15500;
 
                     label28.Text = "充电完成";
+
+
+                    if (checkBox41.Checked)
+                    {
+                        sw_count++;
+                        label24.Text = sw_count.ToString();
+
+                        checkBox14.Checked = false;
+                        checkBox15.Checked = true;
+                    }
                 }
             }
             else
@@ -403,30 +454,62 @@ namespace VirtualVBApp
                 CHG_CNT = 0;
                 // 放电逻辑
                 DISCHG_CNT++;
-                if (DISCHG_CNT < 340)
+                if (DISCHG_CNT < 155)
                 {
                     trackBar1.Value -= 1;
                     trackBar2.Value -= 1;
                     trackBar3.Value -= 19;
                     trackBar6.Value -= 19;
 
+
+                    if (trackBar1.Value < 688)
+                    {
+                        trackBar7.Value = 355 + (int)(GenerateRandomNumber() * GenerateRandomNumber());
+                        TOTAL_POWER = trackBar7.Value;
+                        textBox24.Text = TOTAL_POWER.ToString() + "KW";
+                    }
+                    else if (trackBar1.Value < 760)
+                    {
+                        trackBar7.Value = 433 + +(int)(GenerateRandomNumber() * GenerateRandomNumber());
+                        TOTAL_POWER = trackBar7.Value;
+                        textBox24.Text = TOTAL_POWER.ToString() + "KW";
+                    }
+                    else if (trackBar1.Value < 805)
+                    {
+                        trackBar7.Value = 572 + +(int)(GenerateRandomNumber() * GenerateRandomNumber());
+                        TOTAL_POWER = trackBar7.Value;
+                        textBox24.Text = TOTAL_POWER.ToString() + "KW";
+                    }
+                    else
+                    {
+                        trackBar7.Value = 721 + +(int)(GenerateRandomNumber() * GenerateRandomNumber());
+                        TOTAL_POWER = trackBar7.Value;
+                        textBox24.Text = TOTAL_POWER.ToString() + "KW";
+                    }
+
                     // 确保不过放
                     if (trackBar1.Value < 650)
                     {
-                        DISCHG_CNT = 340;
+                        DISCHG_CNT = 155;
                     }
 
                     label28.Text = "放电中";
                 }
                 else
                 {
-                    DISCHG_CNT = 340;
+                    DISCHG_CNT = 155;
                     trackBar1.Value = 650;
                     trackBar2.Value = 650;
                     trackBar3.Value = 12500;
                     trackBar6.Value = 12500;
 
                     label28.Text = "放电完成";
+
+                    if (checkBox41.Checked)
+                    {
+                        checkBox14.Checked = true;
+                        checkBox15.Checked = false;
+                    }
                 }
             }
             else
@@ -496,8 +579,6 @@ namespace VirtualVBApp
             A_ESV_TOTAL = Math.Min((ushort)(A_ESV_1 + A_ESV_2 + A_ESV_3), (ushort)(A_ESV_4 + A_ESV_5 + A_ESV_6));
             B_ESV_TOTAL = Math.Min((ushort)(B_ESV_1 + B_ESV_2 + B_ESV_3), (ushort)(B_ESV_4 + B_ESV_5 + B_ESV_6));
 
-            A_ESV_TOTAL = (ushort)(A_ESV_TOTAL - 10);
-            B_ESV_TOTAL = (ushort)(B_ESV_TOTAL - 10);
 
             textBox1.Text = ((float)A_ESV_1 / 10.0).ToString("F1") + "V";
             textBox2.Text = ((float)A_ESV_2 / 10.0).ToString("F1") + "V";
@@ -521,27 +602,68 @@ namespace VirtualVBApp
             textBox28.Text = ((float)B_ESV_9 / 10.0).ToString("F1") + "V";
             textBox10.Text = ((float)B_ESV_TOTAL / 10.0).ToString("F1") + "V";
 
-            if (checkBox13.Checked)
+            if (checkBox40.Checked)
             {
-                A_CURRENT = 0 + (int)GenerateCurrentRandomNumber();
-                B_CURRENT = 1 + (int)GenerateCurrentRandomNumber();
-                C_CURRENT = 2 + (int)GenerateCurrentRandomNumber();
-            }
+                // 构造异常电流值（电流高异常）
 
-            if (checkBox14.Checked)
-            {
-                // 充电逻辑
-                A_CURRENT = 0 + 230 + (int)GenerateCurrentRandomNumber();
-                B_CURRENT = 1 + 230 + (int)GenerateCurrentRandomNumber();
-                C_CURRENT = 2 + 230 + (int)GenerateCurrentRandomNumber();
-            }
+                if (checkBox13.Checked)
+                {
+                    A_CURRENT = 9999;
+                    B_CURRENT = 9999;
+                    C_CURRENT = 9999;
+                }
 
-            if (checkBox15.Checked)
+                if (checkBox14.Checked)
+                {
+                    // 充电逻辑
+                    A_CURRENT = 9999;
+                    B_CURRENT = 9999;
+                    C_CURRENT = 9999;
+                }
+
+                if (checkBox15.Checked)
+                {
+                    // 放电逻辑
+                    A_CURRENT = -9999;
+                    B_CURRENT = -9999;
+                    C_CURRENT = -9999;
+                }
+            }
+            else
             {
-                // 放电逻辑
-                A_CURRENT = 0 - 230 - (int)GenerateCurrentRandomNumber();
-                B_CURRENT = 1 - 230 - (int)GenerateCurrentRandomNumber();
-                C_CURRENT = 2 - 230 - (int)GenerateCurrentRandomNumber();
+                // 构造正常工作电流值
+
+                if (checkBox13.Checked)
+                {
+                    A_CURRENT = 0 + (int)GenerateCurrentRandomNumber();
+                    B_CURRENT = 1 + (int)GenerateCurrentRandomNumber();
+                    C_CURRENT = 2 + (int)GenerateCurrentRandomNumber();
+                }
+
+                if (checkBox14.Checked)
+                {
+
+                    int CC = (TOTAL_POWER * 10000) / (A_ESV_TOTAL + B_ESV_TOTAL);
+
+                    CC = CC / 3;
+
+                    // 充电逻辑
+                    A_CURRENT = 0 + CC + (int)GenerateCurrentRandomNumber();
+                    B_CURRENT = 1 + CC + (int)GenerateCurrentRandomNumber();
+                    C_CURRENT = 2 + CC + (int)GenerateCurrentRandomNumber();
+                }
+
+                if (checkBox15.Checked)
+                {
+                    int CC = 0 - (TOTAL_POWER * 10000) / ((int)A_ESV_TOTAL + (int)B_ESV_TOTAL);
+
+                    CC = CC / 3;
+
+                    // 放电逻辑
+                    A_CURRENT = 0 + CC - (int)GenerateCurrentRandomNumber();
+                    B_CURRENT = 1 + CC - (int)GenerateCurrentRandomNumber();
+                    C_CURRENT = 2 + CC - (int)GenerateCurrentRandomNumber();
+                }
             }
 
             textBox8.Text = ((float)A_CURRENT).ToString("F1") + "A";
@@ -775,6 +897,25 @@ namespace VirtualVBApp
             textBox23.Text = ((float)B_RCV).ToString() + "mV";
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            trackBar1.Value = 651;
+            trackBar2.Value = 651;
+            trackBar3.Value = 12510;
+            trackBar6.Value = 12511;
+            trackBar7.Value = 303;
+            //
+            TOTAL_POWER = trackBar7.Value;
+            textBox24.Text = TOTAL_POWER.ToString() + "KW";
+            // 清空带电流异常值
+            checkBox40.Checked = false;
+        }
+
+        private void trackBar7_Scroll(object sender, EventArgs e)
+        {
+            TOTAL_POWER = trackBar7.Value;
+            textBox24.Text = TOTAL_POWER.ToString() + "KW";
+        }
     }
 }
 public class ModbusRtuSlave
