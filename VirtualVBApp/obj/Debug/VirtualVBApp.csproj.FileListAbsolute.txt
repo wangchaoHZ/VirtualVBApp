@@ -23,4 +23,3 @@ D:\WinDesktop\VirtualVBApp\VirtualVBApp\bin\Debug\System.Runtime.CompilerService
 D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Debug\VirtualV.8057BFB6.Up2Date
 D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Debug\VirtualVBApp.exe
 D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Debug\VirtualVBApp.pdb
-D:\WinDesktop\VirtualVBApp\VirtualVBApp\obj\Debug\VirtualVBApp.exe.config
